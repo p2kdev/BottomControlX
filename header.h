@@ -1,7 +1,6 @@
-#import <SpringBoard/SpringBoard.h>
-
-@interface SpringBoard ()
--(void)takeScreenshot;
+@interface SpringBoard : UIApplication
+  -(long long)_frontMostAppOrientation;
+  -(BOOL)isLocked;
 @end
 
 @interface SBGrabberTongue : NSObject
@@ -12,33 +11,18 @@
 @end
 
 @interface SBFluidSwitcherGestureManager : NSObject
-@property(retain, nonatomic) SBGrabberTongue *deckGrabberTongue; // @synthesize deckGrabberTongue=_deckGrabberTongue;
-@end
-
-@interface SBCoverSheetPrimarySlidingViewController : UIViewController
-@property (retain, nonatomic) SBGrabberTongue *grabberTongue;
--(CGPoint)_locationForGesture:(id)arg1;
--(id)dismissGestureRecognizer;
-@end
-
-@interface FBScene : NSObject
--(int)currentInterfaceOrientation;
+  @property(retain, nonatomic) SBGrabberTongue *deckGrabberTongue; // @synthesize deckGrabberTongue=_deckGrabberTongue;
+  @property (nonatomic,retain) UINotificationFeedbackGenerator * edgeProtectFeedbackGenerator; 
 @end
 
 @interface SBControlCenterController : NSObject
-+(SBControlCenterController *)sharedInstance;
--(void)presentAnimated:(BOOL)animated;
-@end
-
-@interface SBLockScreenManager : NSObject
--(id)lockScreenViewController;
+  +(id)sharedInstance;
+  -(void)presentAnimated:(BOOL)animated;
+  -(BOOL)isPresented;
 @end
 
 @interface SBCoverSheetPresentationManager : NSObject
-+(SBCoverSheetPresentationManager *)sharedInstance;
--(void)setCoverSheetPresented:(BOOL)arg1 animated:(BOOL)arg2 withCompletion:(id)arg3;
-@end
-
-@interface CSCoverSheetViewController : UIViewController
--(BOOL)isAuthenticated;
+  +(id)sharedInstance;
+  -(void)setCoverSheetPresented:(BOOL)arg1 animated:(BOOL)arg2 withCompletion:(id)arg3;
+  -(BOOL)isPresented;
 @end

@@ -1,15 +1,19 @@
-ARCHS = arm64 arm64e
-GO_EASY_ON_ME = 1
-FINALPACKAGE = 1
+export THEOS_PACKAGE_SCHEME=rootless
+export TARGET = iphone:clang:13.7:13.0
+
+THEOS_DEVICE_IP = 192.168.86.37
+
+PACKAGE_VERSION=$(THEOS_PACKAGE_BASE_VERSION)
+
 include $(THEOS)/makefiles/common.mk
+
+export ARCHS = arm64 arm64e
 
 TWEAK_NAME = BottomControlX
 BottomControlX_FILES = Tweak.xm
-PREFIX=$(THEOS)/toolchain/Xcode11Default.xctoolchain/usr/bin/
+BottomControlX_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
 after-install::
-	install.exec "killall -9 SpringBoard"
-SUBPROJECTS += bottomcontrolxpreferences
-include $(THEOS_MAKE_PATH)/aggregate.mk
+	install.exec "sbreload"
